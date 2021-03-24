@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/leocorn/gotmw/issues"
   },
-  "homepage": "https://github.com/leocorn/gotmw#readme"
+  "homepage": "https://github.com/leocorn/gotmw#readme",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
 }
