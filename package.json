@@ -1,0 +1,28 @@
+{
+  "name": "gotmw",
+  "version": "0.1.0",
+  "description": "MediaWiki client using Got.js",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leocorn/gotmw.git"
+  },
+  "keywords": [
+    "MediaWiki",
+    "wiki",
+    "api",
+    "wikipedia",
+    "Node",
+    "wikia",
+    "Gotjs"
+  ],
+  "author": "Sean Chen <sean.chen@leocorn.com>",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/leocorn/gotmw/issues"
+  },
+  "homepage": "https://github.com/leocorn/gotmw#readme"
+}
