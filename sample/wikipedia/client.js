@@ -2,6 +2,7 @@ const wiki = require('gotmw');
 
 let wikipedia = {
 
+    // the default site will be wikipedia.org.
     client: new wiki(),
 
     /**

@@ -12,8 +12,9 @@ let wiki = function wiki(options) {
 
     let opts = options || {};
 
+    // set the default site to wikipedia.org
     this.baseUrl = opts.baseUrl || 'https://en.wikipedia.org';
-
+    // here is the API endpoint for wikipedia.org
     this.api = this.baseUrl + "/w/api.php";
 };
 
