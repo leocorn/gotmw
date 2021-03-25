@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leocorn/gotmw.git"
+    "url": "git+https://github.com/leocornus/gotmw.git"
   },
   "keywords": [
     "MediaWiki",
@@ -22,9 +22,9 @@
   "author": "Sean Chen <sean.chen@leocorn.com>",
   "license": "GPL-2.0",
   "bugs": {
-    "url": "https://github.com/leocorn/gotmw/issues"
+    "url": "https://github.com/leocornus/gotmw/issues"
   },
-  "homepage": "https://github.com/leocorn/gotmw#readme",
+  "homepage": "https://github.com/leocornus/gotmw#readme",
   "dependencies": {
     "axios": "^0.21.1"
   }
