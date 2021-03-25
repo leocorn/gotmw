@@ -1,4 +1,6 @@
-const wiki = require('gotmw');
+//const wiki = require('gotmw');
+// test source code directly.
+const wiki = require('../../src');
 
 let wikipedia = {
 
@@ -18,9 +20,10 @@ let wikipedia = {
 
             // try to find article title from the search results.
             const articleTitle = extractTitle( res, tweakTitle(filmTitle) );
+            console.log("Article Title: ", articleTitle);
             // query all images for the article title.
             const articleImgs = await this.client.articleImages( articleTitle.title );
-            //console.log(articleImgs);
+            console.log("Article Images: ", articleImgs);
 
             // get the image title.
             // get all image titles in an array:

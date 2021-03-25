@@ -27,5 +27,7 @@ async function testSearch(filmTitle) {
 
     console.log(`Poster: ${poster}`);
     console.log("=======");
-    console.log(`Excerpt: ${excerpt}`);
+    console.log(`Excerpt: ${excerpt[0]}`);
+    console.log("=======");
+    console.log(`Article: ${excerpt[1]}`);
 }
