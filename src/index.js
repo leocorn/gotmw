@@ -52,12 +52,14 @@ wiki.prototype.articleImages = async function(articleTitle) {
     var params = {
         action: "query",
         prop: "images",
+        // default is 10, not enough for large articles.
+        imlimit: 50,
         titles: articleTitle,
         format: "json"
     };
 
-    let query = this.api + "?" + querystring.encode(params);
-    //console.log(query);
+    const query = this.api + "?" + querystring.encode(params);
+    //console.log('gotmw.articleImages: ', query);
     const res = await axios.get(query);
     //console.log(JSON.stringify(res.data, null, '  '));
 

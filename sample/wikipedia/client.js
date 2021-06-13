@@ -74,8 +74,12 @@ module.exports = wikipedia;
 function tweakTitle(givenTitle) {
 
     //console.log(channel);
-    // remove the PPV.
-    let title = givenTitle.split(" - ")[1];
+    let title = givenTitle;
+
+    // remove the prefix.
+    if( title.includes(" - ") ) {
+        title = title.split(" - ")[1];
+    }
 
     // remove the (ES)
     if( title.endsWith("(ES)") ) {
