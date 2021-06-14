@@ -16,10 +16,16 @@ const api = {
 
         const response = await got( url, {
             searchParams: params,
-            method: method
+            method: method,
+            // the response.data will have the result object.
+            responseType: 'json'
         } );
 
-        return response.data;
+        //console.log(response);
+        // by default the data will stored in body property
+        return response.body;
+        // set the responseType to 'json' to have data object.
+        //return response.data;
     }
 };
 

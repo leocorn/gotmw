@@ -2,9 +2,18 @@
  * This is the interactive command line utility to access wikipedia.org.
  * It is using the yargs (https://github.com/yargs/yargs) for
  * parsing arguments from command line.
+ *
+ * Some samples:
+ *
+ * Get all categories for the wiki page API:Main page.
+ * - node wikipedia-cli.js -a query -p categories --titles 'API:Mmain page'
  */
 
 const yargs = require('yargs');
+
+const wikipedia = require('../../src/api');
+
+const mediawikiApi = "https://www.mediawiki.org/w/api.php";
 
 /**
  * in general, the following are basic rules.
@@ -32,7 +41,7 @@ const options = yargs
     })
     // set default values.
     .default( {
-        action_prop: 'info'
+        prop: 'info'
     } )
     .argv;
 
@@ -46,3 +55,30 @@ const options = yargs
 // try execute the following to see the result:
 //  - nvm run node wikipedia-cli.js -a query -p abc --abcd abcd title
 console.dir(options);
+const params = buildParams( options );
+console.dir(params);
+
+showResult( mediawikiApi, params );
+
+/**
+ * utility function to show the action result.
+ */
+async function showResult( url, params ) {
+
+    const data = await wikipedia.doAction( url, params );
+    console.log(JSON.stringify(data, null, 2));
+}
+
+/**
+ * utility function to build the query parameters from the given yargs options.
+ */
+function buildParams( opts ) {
+
+    return {
+        action: opts.action,
+        prop: opts.prop,
+        titles: opts.titles,
+        format: opts.format ? options.format : 'json'
+    };
+}
+
