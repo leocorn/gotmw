@@ -9,6 +9,7 @@
   "author": "Sean Chen <sean.chen@leocorn.com>",
   "license": "GPL-2.0",
   "dependencies": {
-    "gotmw": "^0.1.1"
+    "gotmw": "^0.1.1",
+    "yargs": "^17.0.1"
   }
 }
