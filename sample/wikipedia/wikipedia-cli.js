@@ -40,9 +40,11 @@ const options = yargs
         demandOption: false 
     })
     // set default values.
-    .default( {
-        prop: 'info'
-    } )
+    //.default( {
+    //    // The values of prop are all different for differnt actions,
+    //    // So it is better not set default value here!
+    //    prop: 'info'
+    //} )
     .argv;
 
 // sample code to show how to access options.
@@ -74,11 +76,27 @@ async function showResult( url, params ) {
  */
 function buildParams( opts ) {
 
-    return {
+    let ps = {
         action: opts.action,
-        prop: opts.prop,
-        titles: opts.titles,
         format: opts.format ? options.format : 'json'
     };
+
+    switch( opts.action ) {
+        case 'query':
+            ps.prop = opts.prop;
+            ps.titles = opts.titles;
+            break;
+        case 'parse':
+            // using the default values from the mediawiki API
+            // text|langlinks|categories|links|templates|images|externallinks|sections|revid|displaytitle|iwlinks|properties|parsewarnings
+            // Here are some properties (prop):
+            // - text: return the parsed text (html format) of the wiki text.
+            // - wikitext: return the original wikitext
+            ps.prop = opts.prop ? opts.prop : 'text|langlinks|categories|links|templates|images|externallinks|sections|revid|displaytitle|iwlinks|properties|parsewarnings';
+            ps.page = opts.page;
+            break;
+    }
+
+    return ps;
 }
 
