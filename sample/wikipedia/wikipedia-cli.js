@@ -7,12 +7,16 @@
  *
  * Get all categories for the wiki page API:Main page.
  * - node wikipedia-cli.js -a query -p categories --titles 'API:Mmain page'
+ *
+ * Return the parsed html text and original wiki text for a give page.
+ * - node sample/wikipedia/wikipedia-cli.js -a parse -p "text|wikitext" --page "API:Main page"
  */
 
 const yargs = require('yargs');
 
 const wikipedia = require('../../src/api');
 
+// this will be the default wiki site url.
 const mediawikiApi = "https://www.mediawiki.org/w/api.php";
 
 /**
@@ -26,6 +30,11 @@ const mediawikiApi = "https://www.mediawiki.org/w/api.php";
 const options = yargs
     // set the help message.
     .usage("Usage: -a <action>")
+    .option("u", {
+        alias: "url",
+        describe: `The wiki site action api url, the default value is ${mediawikiApi}`, type: "string",
+        demaindOption: true
+    })
     // append the help message for the action option.
     .option("a", {
         alias: "action",
@@ -40,11 +49,13 @@ const options = yargs
         demandOption: false 
     })
     // set default values.
-    //.default( {
-    //    // The values of prop are all different for differnt actions,
-    //    // So it is better not set default value here!
-    //    prop: 'info'
-    //} )
+    .default( {
+        // The values of prop are all different for differnt actions,
+        // So it is better not set default value here!
+        //prop: 'info'
+        // set the default API url to mediawiki action API.
+        url: mediawikiApi
+    } )
     .argv;
 
 // sample code to show how to access options.
@@ -60,7 +71,7 @@ console.dir(options);
 const params = buildParams( options );
 console.dir(params);
 
-showResult( mediawikiApi, params );
+showResult( options.url, params );
 
 /**
  * utility function to show the action result.
