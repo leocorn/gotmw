@@ -48,6 +48,18 @@ const options = yargs
         describe: "MediaWiki API action properties. Multiple values allowed, separated with '|'.", type: "string",
         demandOption: false 
     })
+    // the titles option.
+    .option("titles", {
+        describe: "A list of titles for action query, separated with '|'.",
+        type: "string",
+        demandOption: false
+    })
+    // the page option.
+    .option("page", {
+        describe: "The page title for parse action.",
+        type: "string",
+        demandOption: false
+    })
     // set default values.
     .default( {
         // The values of prop are all different for differnt actions,
@@ -67,8 +79,10 @@ const options = yargs
 // and the commands.
 // try execute the following to see the result:
 //  - nvm run node wikipedia-cli.js -a query -p abc --abcd abcd title
+console.log("Command line parameters:");
 console.dir(options);
 const params = buildParams( options );
+console.log("Wiki action API query parameters:");
 console.dir(params);
 
 showResult( options.url, params );
@@ -79,6 +93,7 @@ showResult( options.url, params );
 async function showResult( url, params ) {
 
     const data = await wikipedia.doAction( url, params );
+    console.log("Wiki action API result:");
     console.log(JSON.stringify(data, null, 2));
 }
 
@@ -110,4 +125,3 @@ function buildParams( opts ) {
 
     return ps;
 }
-

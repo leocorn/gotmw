@@ -17,7 +17,7 @@ const api = {
         const response = await got( url, {
             searchParams: params,
             method: method,
-            // the response.data will have the result object.
+            // set the response as a JSON object.
             responseType: 'json'
         } );
 
