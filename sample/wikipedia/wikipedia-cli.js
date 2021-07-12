@@ -49,6 +49,13 @@ const options = yargs
         describe: "MediaWiki API action properties. Multiple values allowed, separated with '|'.", type: "string",
         demandOption: false 
     })
+    // the query list options:
+    .option("l", {
+        alias: "list",
+        describe: "Query list of values. For example using 'categorymembers' to list all pages in a given category",
+        type: "string",
+        demandOption: false
+    })
     // the titles option.
     .option("titles", {
         describe: "A list of titles for action query, separated with '|'.",
@@ -110,8 +117,9 @@ function buildParams( opts ) {
 
     switch( opts.action ) {
         case 'query':
-            ps.prop = opts.prop;
-            ps.titles = opts.titles;
+            //ps.prop = opts.prop;
+            //ps.titles = opts.titles;
+            Object.assign( ps, buildQueryAction( opts ) );
             break;
         case 'parse':
             // using the default values from the mediawiki API
@@ -125,4 +133,29 @@ function buildParams( opts ) {
     }
 
     return ps;
+}
+
+/**
+ * Utility function to build query parameters for the query action.
+ * It will have two major part:
+ * - prop(erty) query
+ * - list query
+ */
+function buildQueryAction( options ) {
+
+    // clone the options.
+    let opts = Object.assign({}, options);
+
+    // remove all notused options.
+    delete opts["_"];
+    delete opts.a;
+    delete opts.action;
+    delete opts.p;
+    delete opts.l;
+    delete opts.url;
+    delete opts.u;
+    delete opts["$0"];
+
+    // return all options as the query parameters.
+    return opts;
 }
