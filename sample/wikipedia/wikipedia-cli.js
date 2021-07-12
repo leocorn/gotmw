@@ -1,15 +1,15 @@
 /**
- * This is the interactive command line utility to access wikipedia.org.
+ * This is the interactive command line utility to access en.wikipedia.org.
  * It is using the yargs (https://github.com/yargs/yargs) for
  * parsing arguments from command line.
  *
  * Some samples:
  *
- * Get all categories for the wiki page API:Main page.
- * - node wikipedia-cli.js -a query -p categories --titles 'API:Mmain page'
+ * Get all categories for the wiki page "UEFA Euro 2020".
+ * - node wikipedia-cli.js -a query -p categories --titles 'UEFA Euro 2020'
  *
  * Return the parsed html text and original wiki text for a give page.
- * - node sample/wikipedia/wikipedia-cli.js -a parse -p "text|wikitext" --page "API:Main page"
+ * - node sample/wikipedia/wikipedia-cli.js -a parse -p "text|wikitext" --page "UEFA Euro 2020"
  */
 
 const yargs = require('yargs');
@@ -18,6 +18,7 @@ const wikipedia = require('../../src/api');
 
 // this will be the default wiki site url.
 const mediawikiApi = "https://www.mediawiki.org/w/api.php";
+const wikipediaApi= "https://en.wikipedia.org/w/api.php";
 
 /**
  * in general, the following are basic rules.
@@ -66,7 +67,7 @@ const options = yargs
         // So it is better not set default value here!
         //prop: 'info'
         // set the default API url to mediawiki action API.
-        url: mediawikiApi
+        url: wikipediaApi
     } )
     .argv;
 
