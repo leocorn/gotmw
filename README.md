@@ -18,9 +18,10 @@ node sample/wikipdia/wikipedia-cli.js -a query -p categories --titles 'UEFA Euro
 
 List all pages for a wiki category.
 ```bash
-node sample/wikipdia/wikipedia-cli.js -a query -l categorymembers --cmtitle 'Category:UEFA Euro 2020' --cmtype page cmlimit 20
+node sample/wikipdia/wikipedia-cli.js -a query -l categorymembers --cmtitle 'Category:UEFA Euro 2020' --cmtype page --cmlimit 20
 ```
 The option --cmtype could be
-- subcat for sub categories
-- file for files
-- page for wiki pages
+
+- **subcat** for sub categories
+- **file** for files
+- **page** for wiki pages
