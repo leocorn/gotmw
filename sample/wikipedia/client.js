@@ -1,6 +1,6 @@
 //const wiki = require('gotmw');
 // test source code directly.
-const wiki = require('../../src');
+const wiki = require('../../src/public-wiki');
 
 let wikipedia = {
 
