@@ -27,6 +27,7 @@
   "homepage": "https://github.com/leocornus/gotmw#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "got": "^11.8.2"
+    "got": "^11.8.2",
+    "tough-cookie": "^4.0.0"
   }
 }
