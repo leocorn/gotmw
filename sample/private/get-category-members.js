@@ -3,10 +3,11 @@
 const mwclient = require('../../src/index');
 
 // we will execute the script by using nvm, for example:
-// $ nvm run node test-login-got.js
+// $ nvm run node get-category-members.js private.mysite.com username password cagetoryTitle
 const rawParams = process.argv.slice(2);
 console.log(rawParams);
 
+// set wiki options.
 mwclient.setWikiOptions( {
     apiUrl: "https://" + rawParams[0] + "/w/api.php",
     privateWiki: true,
@@ -22,7 +23,9 @@ mwclient.setWikiOptions( {
         cmtitle: 'Category:' + rawParams[3],
         cmlimit: 15,
         format: 'json'
-    }, "GET" );
+    } );
+    // default request method is GET
+    //, "GET" );
     console.log(itemsRes);
 
     itemsRes.data.query.categorymembers.forEach( item => {

@@ -87,8 +87,10 @@ const wikiClient = {
                 format: "json"
             };
 
-            const loginRes = await gotInstance.post( wikiOptions.apiUrl,
-                { form: params_1 } ).json();
+            const loginRes = await gotInstance.post(
+                wikiOptions.apiUrl,
+                { form: params_1 }
+            ).json();
 
             console.log(loginRes);
             console.table( cookieJar.getCookiesSync( wikiOptions.apiUrl ) );
@@ -102,6 +104,29 @@ const wikiClient = {
 };
 
 module.exports = wikiClient;
+
+/**
+ * Query action, meta tokens to get token.
+ * We need get a csrf token for editing a wiki page.
+ *
+ * @param {String} type - types of token to request, default is 'csrf'
+ * 
+ * @return {String} - the token string for the given token type
+ */
+wikiClient.getToken = async function( type='csrf' ) {
+
+    // get ready the request parameters.
+    let params = {
+        action: 'query',
+        meta: 'tokens',
+        type: type,
+        format: 'json'
+    };
+
+    let res = await this.apiCall( params );
+
+    return res.data.query.tokens[`${type}token`];
+};
 
 /**
  * the utility method to call wiki api
