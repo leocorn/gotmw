@@ -115,7 +115,8 @@ wikiClient.apiCall = async function( params, method, callback ) {
     let self = this;
 
     // make sure this is authenticated connection.
-    if( privateWiki && cookieJar.getCookiesSync( wikiOptions.apiUrl).length < 2 ) {
+    if( wikiOptions.privateWiki &&
+        cookieJar.getCookiesSync( wikiOptions.apiUrl).length < 2 ) {
 
         await self.login();
     }
