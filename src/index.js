@@ -22,6 +22,12 @@ const wikiOptions = {
     apiUrl: 'https://en.wikipedia.org/w/api.php',
 
     /**
+     * private wiki will need login first to access.
+     * Default is false.
+     */
+    privateWiki: false,
+
+    /**
      * The username and password to access private wiki site.
      * For public wiki site you don't need username and passowrd to
      * read any wiki content.
@@ -95,12 +101,19 @@ const wikiClient = {
 
 module.exports = wikiClient;
 
+/**
+ * the utility method to call wiki api
+ *
+ * @param {Object} params - the query parameters to MediaWiki action api
+ * @param {String} method - the the action method: GET, POST, PUT, UPLOAD, etc.
+ * @param {Function} callback - the callback function after request complete
+ */
 wikiClient.apiCall = async function( params, method, callback ) {
 
     let self = this;
 
     // make sure this is authenticated connection.
-    if( cookieJar.getCookiesSync( wikiOptions.serverUrl ).length < 2 ) {
+    if( privateWiki && cookieJar.getCookiesSync( wikiOptions.apiUrl).length < 2 ) {
 
         await self.login();
     }
