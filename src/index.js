@@ -72,8 +72,9 @@ const wikiClient = {
 
         try {
 
-            const tokenRes = await gotInstance.get( query );
-            //console.log( JSON.parse(tokenRes.body) );
+            // promise.json() will return the response body.
+            const tokenRes = await gotInstance.get( query ).json();
+            console.log(tokenRes);
 
             // get ready the loging POST request.
             var params_1 = {
@@ -81,14 +82,15 @@ const wikiClient = {
                 // we need use bot user account here.
                 lgname: wikiOptions.username,
                 lgpassword: wikiOptions.password,
-                lgtoken: JSON.parse(tokenRes.body).query.tokens.logintoken,
+                //lgtoken: JSON.parse(tokenRes.body).query.tokens.logintoken,
+                lgtoken: tokenRes.query.tokens.logintoken,
                 format: "json"
             };
 
             const loginRes = await gotInstance.post( wikiOptions.apiUrl,
-                { form: params_1 } );
+                { form: params_1 } ).json();
 
-            console.log(loginRes.body);
+            console.log(loginRes);
             console.table( cookieJar.getCookiesSync( wikiOptions.apiUrl ) );
 
         } catch (error) {
@@ -129,16 +131,14 @@ wikiClient.apiCall = async function( params, method, callback ) {
             case 'GET':
                 // setup the full URL for query.
                 const query = wikiOptions.apiUrl + "?" + querystring.encode( params );
-                console.log('apiCall: ', query);
-                let queryRes = await gotInstance.get( query );
-                res = JSON.parse( queryRes.body );
+                //console.log('apiCall: ', query);
+                res = await gotInstance.get( query ).json();
                 break;
             case 'POST':
-                let postRes = await gotInstance.post(
+                res = await gotInstance.post(
                     wikiOptions.apiUrl, { form: params }
-                );
-                res = JSON.parse( postRes.body );
-                console.log( 'API call POST: ', res );
+                ).json();
+                //console.log( 'API call POST: ', res );
                 break;
             default:
                 break;
