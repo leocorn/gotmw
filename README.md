@@ -25,3 +25,10 @@ The option --cmtype could be
 - **subcat** for sub categories
 - **file** for files
 - **page** for wiki pages
+
+Execute a simple search.
+```bash
+sample/wikipedia/wikipedia-cli.js -a query -l search --srsearch='intitle:Ava film'
+```
+
+The details options could find on page [API:Search](https://www.mediawiki.org/wiki/API:Search)
