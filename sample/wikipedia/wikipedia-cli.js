@@ -116,7 +116,9 @@ function buildParams( opts ) {
     };
 
     switch( opts.action ) {
+        // we will handle both query and opensearch the same!
         case 'query':
+        case 'opensearch':
             //ps.prop = opts.prop;
             //ps.titles = opts.titles;
             Object.assign( ps, buildQueryAction( opts ) );
@@ -146,7 +148,8 @@ function buildQueryAction( options ) {
     // clone the options.
     let opts = Object.assign({}, options);
 
-    // remove all notused options.
+    // remove all not used options.
+    // delete will NOT throw error iff the property is not exist!
     delete opts["_"];
     delete opts.a;
     delete opts.action;
