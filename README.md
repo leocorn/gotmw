@@ -32,3 +32,5 @@ sample/wikipedia/wikipedia-cli.js -a query -l search --srsearch='intitle:Ava fil
 ```
 
 The details options could find on page [API:Search](https://www.mediawiki.org/wiki/API:Search)
+[Wikipedia](https://www.wikipedia.org) is using CirrusSearch.
+The advanced search syntax could be found on page [Help:CirrusSearch](https://www.mediawiki.org/wiki/Help:CirrusSearch).
