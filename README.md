@@ -52,7 +52,7 @@ Here are some common namespaces:
 
 The default namespaces are list on page [Help:Namespaces](https://www.mediawiki.org/wiki/Help:Namespaces).
 
-List all recent changes:
+List all recent changes, details on page [API:RecentChanges](https://www.mediawiki.org/wiki/API:RecentChanges).
 ```bash
 node sample/wikipedia/wikipedia-cli.js -a query -l recentchanges --rclimit=3
 ```
