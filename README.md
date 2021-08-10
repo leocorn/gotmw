@@ -56,3 +56,8 @@ List all recent changes:
 ```bash
 node sample/wikipedia/wikipedia-cli.js -a query -l recentchanges --rclimit=3
 ```
+
+The sample for [API:Opensearch](https://www.mediawiki.org/wiki/API:Opensearch) action:
+```bash
+node sample/wikipedia/wikipedia-cli.js -a opensearch --search="Hampi" --limit=10 --namespace="0|6"
+```
