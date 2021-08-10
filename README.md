@@ -51,3 +51,8 @@ Here are some common namespaces:
 - **6** file
 
 The default namespaces are list on page [Help:Namespaces](https://www.mediawiki.org/wiki/Help:Namespaces).
+
+List all recent changes:
+```bash
+node sample/wikipedia/wikipedia-cli.js -a query -l recentchanges --rclimit=3
+```
