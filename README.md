@@ -80,3 +80,14 @@ Here is a sample:
 ```bash
 node sample/wikipedia/wikipedia-cli.js -a query -p imageinfo --titles='File:JUA0680291.pdf' --iiprop="url|size" --iiurlwidth=120
 ```
+
+#### extracts (query prop)
+
+The help page [Get the contents of a page](https://www.mediawiki.org/wiki/API:Get_the_contents_of_a_page) has a full list of methods for tetrieving page content by the API.
+This is the only way to get excerpt from a wiki page.
+
+The extracts action depends on the [Extension:TextExtracts](https://www.mediawiki.org/wiki/Extension:TextExtracts).
+
+```bash
+node sample/wikipedia/wikipedia-cli.js -a query -p extracts --titles='Benji' --exchars=175 --explaintext=true
+```
