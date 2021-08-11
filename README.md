@@ -91,3 +91,13 @@ The extracts action depends on the [Extension:TextExtracts](https://www.mediawik
 ```bash
 node sample/wikipedia/wikipedia-cli.js -a query -p extracts --titles='Benji' --exchars=175 --explaintext=true
 ```
+
+#### parse
+
+The [API:Parse](https://www.mediawiki.org/wiki/API:Parsing_wikitext) action has the
+option to only parse one of the section.
+The section **0** is the paragraphs before the first section.
+
+```bash
+node sample/wikipedia/wikipedia-cli.js -a parse --page="Benji" -p text --section=0 --preview=true
+```
