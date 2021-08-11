@@ -19,6 +19,9 @@ const wikipedia = require('../../src/api');
 // this will be the default wiki site url.
 const mediawikiApi = "https://www.mediawiki.org/w/api.php";
 const wikipediaApi= "https://en.wikipedia.org/w/api.php";
+// All binary files for wikipedia.org is stored on site commons.wikimedia.org
+// Sometime, we will use this for testing.
+//const wikipediaApi= "https://commons.wikimedia.org/w/api.php";
 
 /**
  * in general, the following are basic rules.
@@ -124,13 +127,14 @@ function buildParams( opts ) {
             Object.assign( ps, buildQueryAction( opts ) );
             break;
         case 'parse':
+            Object.assign( ps, buildQueryAction( opts ) );
             // using the default values from the mediawiki API
             // text|langlinks|categories|links|templates|images|externallinks|sections|revid|displaytitle|iwlinks|properties|parsewarnings
             // Here are some properties (prop):
             // - text: return the parsed text (html format) of the wiki text.
             // - wikitext: return the original wikitext
             ps.prop = opts.prop ? opts.prop : 'text|langlinks|categories|links|templates|images|externallinks|sections|revid|displaytitle|iwlinks|properties|parsewarnings';
-            ps.page = opts.page;
+            //ps.page = opts.page;
             break;
     }
 
