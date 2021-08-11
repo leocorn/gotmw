@@ -11,10 +11,14 @@ List options for the command line interface:
 node sample/wikipedia/wikipedia-cli.js
 ```
 
+#### categories (query prop)
+
 Get all categories for a wiki page:
 ```bash
 node sample/wikipdia/wikipedia-cli.js -a query -p categories --titles 'UEFA Euro 2020'
 ```
+
+#### categorymembers (query list)
 
 List all pages for a wiki category.
 ```bash
@@ -25,6 +29,8 @@ The option --cmtype could be
 - **subcat** for sub categories
 - **file** for files
 - **page** for wiki pages
+
+#### search (query list)
 
 Execute a simple search.
 ```bash
@@ -52,12 +58,25 @@ Here are some common namespaces:
 
 The default namespaces are list on page [Help:Namespaces](https://www.mediawiki.org/wiki/Help:Namespaces).
 
+#### opensearch
+
+The sample for [API:Opensearch](https://www.mediawiki.org/wiki/API:Opensearch) action:
+```bash
+node sample/wikipedia/wikipedia-cli.js -a opensearch --search="Hampi" --limit=10 --namespace="0|6"
+```
+
+#### recentchanges (query list)
+
 List all recent changes, details on page [API:RecentChanges](https://www.mediawiki.org/wiki/API:RecentChanges).
 ```bash
 node sample/wikipedia/wikipedia-cli.js -a query -l recentchanges --rclimit=3
 ```
 
-The sample for [API:Opensearch](https://www.mediawiki.org/wiki/API:Opensearch) action:
+#### imageinfo (query prop)
+
+The action [API:Imageinfo](https://www.mediawiki.org/wiki/API:Imageinfo) could be used to get the
+thumbnail url. It also could get the thumbnail image for a **pdf** file.
+Here is a sample:
 ```bash
-node sample/wikipedia/wikipedia-cli.js -a opensearch --search="Hampi" --limit=10 --namespace="0|6"
+node sample/wikipedia/wikipedia-cli.js -a query -p imageinfo --titles='File:JUA0680291.pdf' --iiprop="url|size" --iiurlwidth=120
 ```
