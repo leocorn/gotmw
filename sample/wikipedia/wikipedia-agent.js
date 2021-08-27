@@ -36,7 +36,17 @@ async function main() {
     //console.log(userInput);
     while( userInput[msgStart] != "q" ) {
 
-
+        switch( userInput[msgStart] ) {
+            case "s":
+                console.log("Show the current wiki API settings:");
+                break;
+            case "a":
+                console.log("Start to perform action");
+                break;
+            default:
+                console.log("Not Supported option:", userInput[msgStart]);
+                break;
+        }
 
         userInput = await prompt.get( [msgStart] );
     }
