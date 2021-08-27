@@ -30,5 +30,8 @@
     "got": "^11.8.2",
     "tough-cookie": "^4.0.0",
     "yargs": "^17.1.0"
+  },
+  "devDependencies": {
+    "prompt": "^1.2.0"
   }
 }
