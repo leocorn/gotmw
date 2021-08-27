@@ -1,5 +1,5 @@
 /**
- * This is the interactive command line utility to access en.wikipedia.org.
+ * The command line utility to access en.wikipedia.org.
  * It is using the yargs (https://github.com/yargs/yargs) for
  * parsing arguments from command line.
  *
