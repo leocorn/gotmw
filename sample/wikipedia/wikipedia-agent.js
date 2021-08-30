@@ -26,8 +26,10 @@ async function main() {
         "Welcome to Wikipedia API Smart Agent",
         "====================================",
         "Please choose the following option to get started:",
+        "settings",
         "s - show current API settings",
-        "a - set the MediaWiki API action",
+        "query prop",
+        "qp - perform the MediaWiki API query action",
         "q - quit",
         "",
     ].join('\n');
@@ -38,13 +40,18 @@ async function main() {
 
         switch( userInput[msgStart] ) {
             case "s":
+            case "settings":
                 console.log("Show the current wiki API settings:");
                 break;
-            case "a":
+            case "query prop":
+            case "qp":
                 console.log("Start to perform action");
+                await handleQueryProp();
                 break;
             default:
+                console.log("");
                 console.log("Not Supported option:", userInput[msgStart]);
+                console.log("");
                 break;
         }
 
@@ -58,3 +65,22 @@ main().catch( e => {
     throw e;
 } );
 
+/**
+ * the function to hadle query prop action.
+ */
+async function handleQueryProp() {
+
+    // set up the query action schema.
+    const schema = {
+        properties: {
+            prop: {
+                description: [
+                    "Set which properties to query, using '|' to separate",
+                ].join("\n"),
+            },
+        },
+    };
+
+    let userInput = await prompt.get( schema );
+    console.log(userInput);
+}
