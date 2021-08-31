@@ -25,16 +25,16 @@ async function main() {
         properties: {
             action: {
                 description: [
-                  "",
-                  "Welcome to Wikipedia API Smart Agent",
-                  "====================================",
-                  "Please choose the following option to get started:",
-                  "settings",
-                  "s - show current API settings",
-                  "query prop",
-                  "qp - perform the MediaWiki API query action",
-                  "q - quit",
-                  "",
+                    "",
+                    "Welcome to Wikipedia API Smart Agent",
+                    "====================================",
+                    "Please choose the following option to get started:",
+                    "settings",
+                    "s - show current API settings",
+                    "qp",
+                    "query prop - perform the MediaWiki API query action",
+                    "q - quit",
+                    "",
                 ].join('\n'),
             },
         },
@@ -79,21 +79,50 @@ async function handleQueryProp() {
     // set up the query action schema.
     const schema = {
         properties: {
+            //titles: {
+            //    description: [
+            //        "A list of titles to work on",
+            //        "Separate values with |",
+            //    ].join('\n'),
+            //},
             prop: {
                 description: [
                     "Set which properties to query, using '|' to separate",
                     "For example: categories, images, imageinfo, extracts",
+                    "back - go back to action selection",
                 ].join("\n"),
                 required: true,
             },
-            titles: {
-                description: [
-                    "A list of titles to work on",
-                    "Separate values with |",
-                ].join('\n'),
-            },
         },
     };
+
+    let userInput = await prompt.get( schema );
+    console.table(userInput);
+    while( userInput.prop != 'back' ) {
+        switch( userInput.prop ) {
+            case "imageinfo":
+                // handle query prop=imageinfo
+                await handleQueryPropImageinfo();
+                break;
+            default:
+                console.log("");
+                console.log("Not Supported prop:", userInput.prop);
+                console.log("");
+                break;
+        }
+        userInput = await prompt.get( schema );
+    }
+
+    return userInput;
+}
+
+/**
+ * the function to handle query prop imageinfo action.
+ */
+async function handleQueryPropImageinfo() {
+
+    // set up the query action schema for prop=imageinfo
+    const schema = require('./../schema/query-prop-imageinfo.js');
 
     let userInput = await prompt.get( schema );
     console.table(userInput);
