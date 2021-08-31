@@ -46,6 +46,7 @@ async function main() {
         switch( userInput.action ) {
             case "settings":
                 console.log("Show the current wiki API settings:");
+                console.dir(wikipedia.getWikiOptions);
                 break;
             case "action":
                 console.log("Start to perform action");

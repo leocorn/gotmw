@@ -54,6 +54,14 @@ const wikiClient = {
     },
 
     /**
+     * utility function to return the wiki options.
+     */
+    getWikiOptions: function() {
+
+        return wikiOptions;
+    },
+
+    /**
      * The login request.
      */
     login: async function() {
