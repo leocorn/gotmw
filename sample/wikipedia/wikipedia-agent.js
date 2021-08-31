@@ -6,7 +6,8 @@
 
 const prompt = require('prompt');
 
-const wikipedia = require('../../src/api');
+//const wikipedia = require('../../src/api');
+const wikipedia = require('../../src/index.js');
 
 // the API url for wikipedia site.
 const wikipediaApi= "https://en.wikipedia.org/w/api.php";
@@ -107,7 +108,7 @@ async function handleApiAction() {
  */
 async function showResult( url, params ) {
 
-    const data = await wikipedia.doAction( url, params );
+    const data = await wikipedia.apiCall( params );
     console.log("Wiki action API result:");
     console.log(JSON.stringify(data, null, 2));
     //console.dir(data);
