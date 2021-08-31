@@ -73,20 +73,7 @@ main().catch( e => {
 async function handleApiAction() {
 
     // set the prompt schema.
-    const schema = {
-        properties: {
-            params: {
-                description: [
-                    "",
-                    "b - back to previous prompt",
-                    "",
-                    "Wiki API action parameters, for example",
-                    "- action=query prop=imageinfo titles=File:JUA0680291.pdf iiprop=url|size iiurlwidth=120",
-                    "",
-                ].join("\n"),
-            },
-        },
-    };
+    const schema = require('./../schema/wikipedia-actions.js');
 
     let userInput = await prompt.get( schema );
     while( userInput.params != "b" ) {
