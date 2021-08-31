@@ -21,41 +21,47 @@ const mediawikiApi = "https://www.mediawiki.org/w/api.php";
 async function main() {
 
     // preparing the prompt message for end user to get started.
-    const msgStart = [
-        "",
-        "Welcome to Wikipedia API Smart Agent",
-        "====================================",
-        "Please choose the following option to get started:",
-        "settings",
-        "s - show current API settings",
-        "query prop",
-        "qp - perform the MediaWiki API query action",
-        "q - quit",
-        "",
-    ].join('\n');
+    const schema = {
+        properties: {
+            action: {
+                description: [
+                  "",
+                  "Welcome to Wikipedia API Smart Agent",
+                  "====================================",
+                  "Please choose the following option to get started:",
+                  "settings",
+                  "s - show current API settings",
+                  "query prop",
+                  "qp - perform the MediaWiki API query action",
+                  "q - quit",
+                  "",
+                ].join('\n'),
+            },
+        },
+    };
 
-    let userInput = await prompt.get( [msgStart] );
-    //console.log(userInput);
-    while( userInput[msgStart] != "q" ) {
+    let userInput = await prompt.get( schema );
+    while( userInput.action != "q" ) {
 
-        switch( userInput[msgStart] ) {
+        console.table(userInput);
+        switch( userInput.action ) {
             case "s":
             case "settings":
                 console.log("Show the current wiki API settings:");
                 break;
             case "query prop":
             case "qp":
-                console.log("Start to perform action");
+                console.log("Start to perform query action");
                 await handleQueryProp();
                 break;
             default:
                 console.log("");
-                console.log("Not Supported option:", userInput[msgStart]);
+                console.log("Not Supported option:", userInput.action);
                 console.log("");
                 break;
         }
 
-        userInput = await prompt.get( [msgStart] );
+        userInput = await prompt.get( schema );
     }
 }
 
@@ -76,11 +82,20 @@ async function handleQueryProp() {
             prop: {
                 description: [
                     "Set which properties to query, using '|' to separate",
+                    "For example: categories, images, imageinfo, extracts",
                 ].join("\n"),
+                required: true,
+            },
+            titles: {
+                description: [
+                    "A list of titles to work on",
+                    "Separate values with |",
+                ].join('\n'),
             },
         },
     };
 
     let userInput = await prompt.get( schema );
-    console.log(userInput);
+    console.table(userInput);
+    return userInput;
 }
