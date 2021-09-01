@@ -41,6 +41,7 @@ async function main() {
                     "login - login to a private wiki",
                     "action { } - perform the MediaWiki API query action",
                     "examples - show action examples",
+                    "example[i] - perform a example action specified by the index id",
                     "q - quit",
                     "",
                 ].join('\n'),
@@ -59,6 +60,11 @@ async function main() {
         } else if( userInput.action.startsWith("action") ) {
             userInput.value = userInput.action.split("action ")[1];
             userInput.action = "action";
+        } else if( /example\[[0-9]+\]/.test( userInput.action ) ) {
+            // load the example and set the action.
+            const index = parseInt( userInput.action.match( /example\[([0-9]+)\]/)[1] );
+            userInput.value = actions[index];
+            userInput.action = "example";
         }
 
         switch( userInput.action ) {
@@ -85,6 +91,10 @@ async function main() {
                 console.log("Showing examples:");
                 //console.table(actions);
                 showExamples(actions);
+                break;
+            case "example":
+                console.log("Start to perform action");
+                await handleApiAction( userInput.value );
                 break;
             default:
                 console.log("");
