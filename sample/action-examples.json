@@ -13,5 +13,19 @@
         "cmtitle": "Category:UEFA_Euro_2020",
         "cmtype": "page",
         "cmlimit": 20
+    },
+
+    {
+        "action": "query",
+        "list": "recentchanges",
+        "rclimit": 3
+    },
+
+    {
+        "action": "query",
+        "list": "search",
+        "srsearch": "benji",
+        "srlimit": 3,
+        "srnamespace": "6|14"
     }
 ]
