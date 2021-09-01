@@ -1,5 +1,11 @@
 [
-    {"action":"query", "prop":"imageinfo", "iiprop":"url|size", "iiurlwidth":100, "titles":"File:JUA0680291.pdf"},
+    {
+        "action":"query",
+        "prop":"imageinfo",
+        "iiprop":"url|size",
+        "iiurlwidth":100,
+        "titles":"File:JUA0680291.pdf"
+    },
 
     {
         "action": "query",
