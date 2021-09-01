@@ -7,7 +7,7 @@
 const prompt = require('prompt');
 
 //const wikipedia = require('../../src/api');
-const wikipedia = require('../../src/index.js');
+const wikipedia = require('./../src/index.js');
 
 // the API url for wikipedia site.
 const wikipediaApi= "https://en.wikipedia.org/w/api.php";
@@ -33,7 +33,7 @@ async function main() {
                     "settings - show current API settings",
                     "config { } - setup API settings",
                     "login - login to a private wiki",
-                    "action - perform the MediaWiki API query action",
+                    "action { } - perform the MediaWiki API query action",
                     "q - quit",
                     "",
                 ].join('\n'),
@@ -49,6 +49,9 @@ async function main() {
         if( userInput.action.startsWith("config") ) {
             userInput.value = userInput.action.split("config ")[1];
             userInput.action = "config";
+        } else if( userInput.action.startsWith("action") ) {
+            userInput.value = userInput.action.split("action ")[1];
+            userInput.action = "action";
         }
 
         switch( userInput.action ) {
@@ -65,7 +68,7 @@ async function main() {
                 break;
             case "action":
                 console.log("Start to perform action");
-                await handleApiAction();
+                await handleApiAction( JSON.parse(userInput.value) );
                 break;
             case "login":
                 console.log("Log into a private wiki site");
@@ -91,42 +94,21 @@ main().catch( e => {
 /**
  * the main function to process api actions.
  */
-async function handleApiAction() {
+async function handleApiAction(actionParams) {
 
-    // set the prompt schema.
-    const schema = require('./../schema/wikipedia-actions.js');
+    // force the return format to json
+    actionParams.format = 'json';
+    //console.table(request);
+    console.dir(actionParams);
 
-    let userInput = await prompt.get( schema );
-    while( userInput.params != "b" ) {
-
-        console.table(userInput);
-
-        // parse the params from user input.
-        let request = {};
-        //console.table( userInput.params.split(" ") );
-        userInput.params.split(" ").forEach( param => {
-            // split the first as the name.
-            const name = param.split("=", 1)[0];
-            const value = param.split(name + "=")[1];
-            request[name] = value;
-        } );
-
-        // force the return format to json
-        request.format = 'json';
-        //console.table(request);
-        console.dir(request);
-
-        // send request and process response.
-        await showResult( wikipediaApi, request);
-
-        userInput = await prompt.get( schema );
-    }
+    // send request and process response.
+    await showResult( actionParams );
 }
 
 /**
  * utility function to show the action result.
  */
-async function showResult( url, params ) {
+async function showResult( params ) {
 
     const data = await wikipedia.apiCall( params );
     console.log("Wiki action API result:");
