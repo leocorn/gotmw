@@ -31,6 +31,7 @@ async function main() {
                     "====================================",
                     "Please choose the following option to get started:",
                     "settings - show current API settings",
+                    "config { } - setup API settings",
                     "action - perform the MediaWiki API query action",
                     "q - quit",
                     "",
@@ -42,11 +43,24 @@ async function main() {
     let userInput = await prompt.get( schema );
     while( userInput.action != "q" ) {
 
-        console.table(userInput);
+        // show user's input.
+        //console.table(userInput);
+        if( userInput.action.startsWith("config") ) {
+            userInput.value = userInput.action.split("config ")[1];
+            userInput.action = "config";
+        }
+
         switch( userInput.action ) {
+            case "config":
+                console.log("Setup wiki API settings");
+                // set new properties
+                wikipedia.setWikiOptions( JSON.parse( userInput.value ) );
+                // show all settings.
+                console.dir(wikipedia.getWikiOptions());
+                break;
             case "settings":
                 console.log("Show the current wiki API settings:");
-                console.dir(wikipedia.getWikiOptions);
+                console.dir(wikipedia.getWikiOptions());
                 break;
             case "action":
                 console.log("Start to perform action");
