@@ -9,6 +9,9 @@ const prompt = require('prompt');
 //const wikipedia = require('../../src/api');
 const wikipedia = require('./../src/index.js');
 
+// pre-load some action examples:
+const actions = require('./action-examples.json');
+
 // the API url for wikipedia site.
 const wikipediaApi= "https://en.wikipedia.org/w/api.php";
 // all API url for mediawiki site.
@@ -34,6 +37,7 @@ async function main() {
                     "config { } - setup API settings",
                     "login - login to a private wiki",
                     "action { } - perform the MediaWiki API query action",
+                    "examples - show action examples",
                     "q - quit",
                     "",
                 ].join('\n'),
@@ -73,6 +77,10 @@ async function main() {
             case "login":
                 console.log("Log into a private wiki site");
                 await wikipedia.login();
+                break;
+            case "examples":
+                console.log("Showing examples:");
+                console.table(actions);
                 break;
             default:
                 console.log("");

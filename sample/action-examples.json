@@ -1,0 +1,17 @@
+[
+    {"action":"query", "prop":"imageinfo", "iiprop":"url|size", "iiurlwidth":100, "titles":"File:JUA0680291.pdf"},
+
+    {
+        "action": "query",
+        "meta": "tokens",
+        "type": "login"
+    },
+
+    {
+        "action": "query",
+        "list": "categorymembers",
+        "cmtitle": "Category:UEFA_Euro_2020",
+        "cmtype": "page",
+        "cmlimit": 20
+    }
+]
