@@ -10,6 +10,9 @@ const prompt = require('prompt');
 const wikipedia = require('./../src/index.js');
 
 // pre-load some action examples:
+// this is a sample of the file, it is an array of action request object.
+// It is a simple JSON format at this time.
+// We will update to use SQLite or Solr.
 const actions = require('./action-examples.json');
 
 // the API url for wikipedia site.
@@ -80,7 +83,8 @@ async function main() {
                 break;
             case "examples":
                 console.log("Showing examples:");
-                console.table(actions);
+                //console.table(actions);
+                showExamples(actions);
                 break;
             default:
                 console.log("");
@@ -122,4 +126,20 @@ async function showResult( params ) {
     console.log("Wiki action API result:");
     console.log(JSON.stringify(data, null, 2));
     //console.dir(data);
+}
+
+/**
+ * utility function to display action examples.
+ * Action examples should store in JSON format.
+ * In the wiki agent, we expected to show all examples one line for each.
+ * This function will preparing each example in one line string.
+ */
+function showExamples( examples ) {
+
+    const samples = examples.map( example => {
+        // using the default stringify, no replacer and no space
+        return JSON.stringify( example );
+    } );
+
+    console.table(samples);
 }
