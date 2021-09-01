@@ -32,6 +32,7 @@ async function main() {
                     "Please choose the following option to get started:",
                     "settings - show current API settings",
                     "config { } - setup API settings",
+                    "login - login to a private wiki",
                     "action - perform the MediaWiki API query action",
                     "q - quit",
                     "",
@@ -65,6 +66,10 @@ async function main() {
             case "action":
                 console.log("Start to perform action");
                 await handleApiAction();
+                break;
+            case "login":
+                console.log("Log into a private wiki site");
+                await wikipedia.login();
                 break;
             default:
                 console.log("");
