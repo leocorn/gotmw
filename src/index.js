@@ -2,6 +2,8 @@
 
 const querystring = require('querystring');
 const fs = require('fs');
+const FormData = require('form-data');
+
 const got = require('got');
 const toughCookie = require('tough-cookie');
 
@@ -182,6 +184,13 @@ wikiClient.apiCall = async function( params, method, callback ) {
                 ).json();
                 //console.log( 'API call POST: ', res );
                 break;
+            case 'POST-BODY':
+                // the form-data post.
+                res = await gotInstance.post(
+                    wikiOptions.apiUrl, { body: params }
+                ).json();
+                //console.log( 'API call POST: ', res );
+                break;
             default:
                 break;
         }
@@ -213,20 +222,30 @@ wikiClient.upload = async function( filepath, filename, text, comment ) {
     // get CSRF token, csrf is the default token type.
     const csrfToken = await this.getToken()
 
-    // post request to wiki.
-    const params = {
-        action: "upload",
-        token: csrfToken,
-        format: "json",
-        filename: filename,
-        text: text,
-        comment: comment,
-        // prepare the read stream for local file.
-        file: fs.createReadStream(filepath),
-    };
-    console.log(params);
+    //// post request to wiki.
+    //const params = {
+    //    action: "upload",
+    //    token: csrfToken,
+    //    format: "json",
+    //    filename: filename,
+    //    text: text,
+    //    comment: comment,
+    //    // prepare the read stream for local file.
+    //    file: fs.createReadStream(filepath),
+    //};
+    //console.log(params);
+
+    const form = new FormData();
+    form.append('action', 'upload');
+    form.append('token', csrfToken);
+    form.append('format', 'json');
+    form.append('filename', filename);
+    form.append('text', text);
+    form.append('comment', comment);
+    form.append('file', fs.createReadStream(filepath));
+    console.log(form);
 
     // call api
-    const ret = await this.apiCall( params, 'POST' );
+    const ret = await this.apiCall( form, 'POST-BODY' );
     return ret;
 };
