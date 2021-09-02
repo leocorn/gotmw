@@ -1,6 +1,7 @@
 'use strict';
 
 const querystring = require('querystring');
+const fs = require('fs');
 const got = require('got');
 const toughCookie = require('tough-cookie');
 
@@ -169,6 +170,13 @@ wikiClient.apiCall = async function( params, method, callback ) {
                 res = await gotInstance.get( query ).json();
                 break;
             case 'POST':
+                // this the simple form to post.
+                // the form body is converted to a query string using
+                // - new URLSearchParams(object)).toString()
+                // if the Content-Type header is not present,
+                // it will be set to application/x-www-form-urlencoded.
+                // That will not work for the direct upload action!
+                // We need use form-data for direct upload action.
                 res = await gotInstance.post(
                     wikiOptions.apiUrl, { form: params }
                 ).json();
@@ -202,11 +210,23 @@ wikiClient.apiCall = async function( params, method, callback ) {
  */
 wikiClient.upload = async function( filepath, filename, text, comment ) {
 
-    // make sure it is logged in.
-
-    // get CRSF token,
-
-    // prepare the read stream for local file.
+    // get CSRF token, csrf is the default token type.
+    const csrfToken = await this.getToken()
 
     // post request to wiki.
+    const params = {
+        action: "upload",
+        token: csrfToken,
+        format: "json",
+        filename: filename,
+        text: text,
+        comment: comment,
+        // prepare the read stream for local file.
+        file: fs.createReadStream(filepath),
+    };
+    console.log(params);
+
+    // call api
+    const ret = await this.apiCall( params, 'POST' );
+    return ret;
 };
