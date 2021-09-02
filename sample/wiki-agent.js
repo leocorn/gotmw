@@ -33,19 +33,9 @@ async function main() {
             action: {
                 description: [
                     "",
-                    "Welcome to Wikipedia API Smart Agent",
+                    //"Welcome to Wikipedia API Smart Agent",
                     "====================================",
-                    "Please choose the following option to get started:",
-                    "settings - show current API settings",
-                    "config { } - setup API settings",
-                    "login - login to a private wiki",
-                    "action { } - perform the MediaWiki API read action",
-                    "upload { } - perform the upload action",
-                    "examples - show action examples",
-                    "example[i] - perform a example action specified by the index id",
-                    "loadexamples FILE_PATH - load examples from json file",
-                    //"savehistory - save history to files",
-                    "q - quit",
+                    "Please type command to start or 'help' to show commands:",
                     "",
                 ].join('\n'),
             },
@@ -79,6 +69,9 @@ async function main() {
         }
 
         switch( userInput.action ) {
+            case "help":
+                showHelpMessage();
+                break;
             case "config":
                 console.log("Setup wiki API settings");
                 // set new properties
@@ -185,4 +178,26 @@ function showExamples( examples ) {
     } );
 
     console.table(samples);
+}
+
+/**
+ * show the help information for wiki-agent.
+ */
+function showHelpMessage( ) {
+
+    const msg = [
+        "help - show the help message",
+        "settings - show current API settings",
+        "config { } - setup API settings",
+        "login - login to a private wiki",
+        "action { } - perform the MediaWiki API read action",
+        "upload { } - perform the upload action",
+        "examples - show action examples",
+        "example[i] - perform a example action specified by the index id",
+        "loadexamples FILE_PATH - load examples from json file",
+        //"savehistory - save history to files",
+        "q - quit",
+    ].join("\n");
+
+    console.log(msg);
 }
