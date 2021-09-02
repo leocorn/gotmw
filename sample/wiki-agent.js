@@ -13,7 +13,7 @@ const wikipedia = require('./../src/index.js');
 // this is a sample of the file, it is an array of action request object.
 // It is a simple JSON format at this time.
 // We will update to use SQLite or Solr.
-const actions = require('./action-examples.json');
+let actions = require('./action-examples.json');
 
 // the API url for wikipedia site.
 const wikipediaApi= "https://en.wikipedia.org/w/api.php";
@@ -42,6 +42,8 @@ async function main() {
                     "action { } - perform the MediaWiki API query action",
                     "examples - show action examples",
                     "example[i] - perform a example action specified by the index id",
+                    "loadexamples FILE_PATH - load examples from json file",
+                    "savehistory - save history to files",
                     "q - quit",
                     "",
                 ].join('\n'),
@@ -60,6 +62,9 @@ async function main() {
         } else if( userInput.action.startsWith("action") ) {
             userInput.value = userInput.action.split("action ")[1];
             userInput.action = "action";
+        } else if( userInput.action.startsWith("loadexamples") ) {
+            userInput.value = userInput.action.split("loadexamples ")[1];
+            userInput.action = "loadexamples";
         } else if( /example\[[0-9]+\]/.test( userInput.action ) ) {
             // load the example and set the action.
             const index = parseInt( userInput.action.match( /example\[([0-9]+)\]/)[1] );
@@ -95,6 +100,11 @@ async function main() {
             case "example":
                 console.log("Start to perform action");
                 await handleApiAction( userInput.value );
+                break;
+            case "loadexamples":
+                console.log("Load action examples");
+                actions = require( userInput.value );
+                showExamples(actions);
                 break;
             default:
                 console.log("");
