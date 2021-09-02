@@ -39,11 +39,12 @@ async function main() {
                     "settings - show current API settings",
                     "config { } - setup API settings",
                     "login - login to a private wiki",
-                    "action { } - perform the MediaWiki API query action",
+                    "action { } - perform the MediaWiki API read action",
+                    "upload { } - perform the upload action",
                     "examples - show action examples",
                     "example[i] - perform a example action specified by the index id",
                     "loadexamples FILE_PATH - load examples from json file",
-                    "savehistory - save history to files",
+                    //"savehistory - save history to files",
                     "q - quit",
                     "",
                 ].join('\n'),
@@ -65,6 +66,11 @@ async function main() {
         } else if( userInput.action.startsWith("loadexamples") ) {
             userInput.value = userInput.action.split("loadexamples ")[1];
             userInput.action = "loadexamples";
+        } else if( userInput.action.startsWith("upload") ) {
+            //userInput.value = userInput.action.split("upload ")[1];
+            // using string is safer and makes more sense.
+            userInput.value = userInput.action.substring("upload ".length);
+            userInput.action = "upload";
         } else if( /example\[[0-9]+\]/.test( userInput.action ) ) {
             // load the example and set the action.
             const index = parseInt( userInput.action.match( /example\[([0-9]+)\]/)[1] );
@@ -91,6 +97,12 @@ async function main() {
             case "login":
                 console.log("Log into a private wiki site");
                 await wikipedia.login();
+                break;
+            case "upload":
+                console.log("Perform upload action");
+                //console.log(userInput);
+                //console.log( JSON.parse(userInput.value) );
+                await handleUpload( JSON.parse(userInput.value) );
                 break;
             case "examples":
                 console.log("Showing examples:");
@@ -146,6 +158,17 @@ async function showResult( params ) {
     console.log("Wiki action API result:");
     console.log(JSON.stringify(data, null, 2));
     //console.dir(data);
+}
+
+/**
+ * Utility function to perform the upload action.
+ */
+async function handleUpload( params ) {
+
+    const data = await wikipedia.upload( params.filepath, params.filename,
+        params.text, params.comment );
+    console.log("Upload result:");
+    console.log(JSON.stringify( data, null, 2 ));
 }
 
 /**
