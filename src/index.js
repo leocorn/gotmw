@@ -190,3 +190,23 @@ wikiClient.apiCall = async function( params, method, callback ) {
         };
     }
 };
+
+/**
+ * directly update file.
+ *
+ * @param {String} filepath - the full path to local file.
+ * @param {String} filename - The target filename in wiki site.
+ * @param {String} text - page text for the new file, using wiki syntax.
+ *                        it could include categories.
+ * @param {String} comment - upload comment.
+ */
+wikiClient.upload = async function( filepath, filename, text, comment ) {
+
+    // make sure it is logged in.
+
+    // get CRSF token,
+
+    // prepare the read stream for local file.
+
+    // post request to wiki.
+};
