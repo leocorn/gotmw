@@ -222,7 +222,7 @@ wikiClient.upload = async function( filepath, filename, text, comment ) {
     // get CSRF token, csrf is the default token type.
     const csrfToken = await this.getToken()
 
-    //// post request to wiki.
+    //// post request to wiki. the got.form option doesn't work.
     //const params = {
     //    action: "upload",
     //    token: csrfToken,
@@ -243,7 +243,7 @@ wikiClient.upload = async function( filepath, filename, text, comment ) {
     form.append('text', text);
     form.append('comment', comment);
     form.append('file', fs.createReadStream(filepath));
-    console.log(form);
+    //console.log(form);
 
     // call api
     const ret = await this.apiCall( form, 'POST-BODY' );
