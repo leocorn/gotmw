@@ -29,9 +29,38 @@
 
     {
         "action": "query",
+        "prop": "extracts",
+        "titles": "Benji",
+        "exchars": 175,
+        "explaintext": true
+    },
+
+    {
+        "action": "parse",
+        "prop": "text",
+        "page": "Benji",
+        "section": 0,
+        "preview": true
+    },
+
+    {
+        "action": "query",
+        "list": "search",
+        "srsearch": "intitle:Ava film",
+        "srlimit": 3
+    },
+
+    {
+        "action": "query",
         "list": "search",
         "srsearch": "benji",
         "srlimit": 3,
         "srnamespace": "6|14"
+    },
+
+    {
+        "action": "opensearch",
+        "search": "Hampi",
+        "limit": 3
     }
 ]
