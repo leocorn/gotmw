@@ -177,7 +177,15 @@ function showExamples( examples ) {
         return JSON.stringify( example );
     } );
 
-    console.table(samples);
+    // table will show all samples in table with index id as the first column.
+    // The only thing I don't like is all values are align in the center,
+    // which is arnnoying to read!
+    //console.table(samples);
+
+    // the spread operator (...) will use the index id as the name for
+    // each item in an array.
+    // It is the best choice we can have now.
+    console.log({...samples});
 }
 
 /**
