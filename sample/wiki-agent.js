@@ -205,7 +205,8 @@ function showHelpMessage( ) {
         "loadexamples FILE_PATH - load examples from json file",
         //"savehistory - save history to files",
         "q - quit",
-    ].join("\n");
+    ];
 
+    // console log method will add color for each item of an array
     console.log(msg);
 }
