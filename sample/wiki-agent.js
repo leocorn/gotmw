@@ -175,6 +175,14 @@ function showExamples( examples ) {
     const samples = examples.map( example => {
         // using the default stringify, no replacer and no space
         return JSON.stringify( example );
+
+        // TODO: introduce the "description" field for each actions
+        //       in the examples json file.
+        //       We will return a array with description and the actural action
+        //return [
+        //    "some descriptions",
+        //    JSON.stringify( example )
+        //];
     } );
 
     // table will show all samples in table with index id as the first column.
