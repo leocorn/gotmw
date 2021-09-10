@@ -1,5 +1,14 @@
 # gotmw.js
-MediaWiki client on top of Got.js and many others.
+Node.js MediaWiki client on top of Got.js and many others.
+
+## Wiki Agent
+
+Try our wiki-agent to learn the MediaWiki Action APIs:
+
+```bash
+cd sample
+node wiki-agent.js
+```
 
 ## Examples
 Here are some examples to using **gotmw.js**.
