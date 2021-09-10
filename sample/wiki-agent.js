@@ -48,7 +48,7 @@ async function main() {
         // show user's input.
         //console.table(userInput);
         if( userInput.action.startsWith("config") ) {
-            userInput.value = userInput.action.split("config ")[1];
+            userInput.value = userInput.action.substring("config ".length);
             userInput.action = "config";
         } else if( userInput.action.startsWith("action") ) {
             userInput.value = userInput.action.split("action ")[1];
