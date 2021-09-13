@@ -213,9 +213,11 @@ wikiClient.apiCall = async function( params, method, callback ) {
  *
  * @param {String} filepath - the full path to local file.
  * @param {String} filename - The target filename in wiki site.
+ *                            It should include the file extension.
  * @param {String} text - page text for the new file, using wiki syntax.
  *                        it could include categories.
- * @param {String} comment - upload comment.
+ * @param {String} comment - upload comment. Also used as the initial page text
+ *                           for new files if text is not specified.
  */
 wikiClient.upload = async function( filepath, filename, text, comment ) {
 
