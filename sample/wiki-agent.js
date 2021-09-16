@@ -212,24 +212,27 @@ function showExamples( examples ) {
 function showHelpMessage( ) {
 
     const msg = [
-        "help         Show the help message",
+        "COMMAND      DESCRIPTION",
+        "----------------------------------------------------------------------",
+        "help         Show the help message for wiki agent",
+        "q            quit wiki agent",
+        "----------------------------------------------------------------------",
         "settings     Show current wiki API settings",
         "config       Setup wiki API settings",
         '             Example: config {"apiUrl":"https://en.wikipedia.org/w/api.php","privateWiki":true,"username":"botuser","password":"thepassword"}',
         "login        Login to a private wiki site or login to create or update content.",
+        "----------------------------------------------------------------------",
         "action       Perform the MediaWiki API read action",
         '             Example: action {"action":"query","list":"search","srsearch":"intitle:Ava film","srlimit":3}',
         "upload       Perform the upload action",
-        '             Example upload {"filepath":"/tmp/screen-shot-1.png","filename":"screen-shot-1.png","text":"page content [[Category:Testing]]","comment":"upload from wiki agent"}',
-        "",
+        '             Example: upload {"filepath":"/tmp/screen-shot-1.png","filename":"screen-shot-1.png","text":"page content [[Category:Testing]]","comment":"upload from wiki agent"}',
+        "----------------------------------------------------------------------",
         "examples     Show action examples",
         "             By default, examples in file sample/action-examples.json are loaded.",
         "example[i]   Perform a example action specified by the index id",
         "loadexamples Load examples from the given json file",
         '             Example: loadexamples /tmp/my-query-actions.json',
         //"savehistory - save history to files",
-        "",
-        "q            quit",
     ];
 
     // console log method will add color for each item of an array
