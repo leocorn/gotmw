@@ -8,6 +8,7 @@
     },
 
     {
+        "description":"Example to show how to get a login token",
         "action": "query",
         "meta": "tokens",
         "type": "login"
@@ -22,6 +23,7 @@
     },
 
     {
+        "description":"Query the most recent changes, only return the first 3",
         "action": "query",
         "list": "recentchanges",
         "rclimit": 3
@@ -44,18 +46,20 @@
     },
 
     {
-        "action": "query",
-        "list": "search",
-        "srsearch": "intitle:Ava film",
-        "srlimit": 3
-    },
-
-    {
+        "description":"Search 'benji' using the build-in wiki search",
         "action": "query",
         "list": "search",
         "srsearch": "benji",
         "srlimit": 3,
         "srnamespace": "6|14"
+    },
+
+    {
+        "description":"Advanced search using the build-in wiki search",
+        "action": "query",
+        "list": "search",
+        "srsearch": "intitle:Ava film",
+        "srlimit": 3
     },
 
     {
