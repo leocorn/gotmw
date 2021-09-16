@@ -202,17 +202,23 @@ function showExamples( examples ) {
 function showHelpMessage( ) {
 
     const msg = [
-        "help - show the help message",
-        "settings - show current API settings",
-        "config { } - setup API settings",
-        "login - login to a private wiki",
-        "action { } - perform the MediaWiki API read action",
-        "upload { } - perform the upload action",
-        "examples - show action examples",
-        "example[i] - perform a example action specified by the index id",
-        "loadexamples FILE_PATH - load examples from json file",
+        "help         Show the help message",
+        "settings     Show current wiki API settings",
+        "config       Setup wiki API settings",
+        '             Example: config {"apiUrl":"https://en.wikipedia.org/w/api.php","privateWiki":true,"username":"botuser","password":"thepassword"}',
+        "login        Login to a wiki site",
+        "action       Perform the MediaWiki API read action",
+        '             Example: action {"action":"query","list":"search","srsearch":"intitle:Ava film","srlimit":3}',
+        "upload       Perform the upload action",
+        '             Example upload {"filepath":"/tmp/screen-shot-1.png","filename":"screen-shot-1.png","text":"page content [[Category:Testing]]","comment":"upload from wiki agent"}',
+        "",
+        "examples     Show action examples",
+        "example[i]   Perform a example action specified by the index id",
+        "loadexamples Load examples from the given json file",
+        '             Example: loadexamples /tmp/my-query-actions.json',
         //"savehistory - save history to files",
-        "q - quit",
+        "",
+        "q            quit",
     ];
 
     // console log method will add color for each item of an array
