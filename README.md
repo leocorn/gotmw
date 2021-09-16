@@ -14,3 +14,15 @@ Here is a quick demo:
 
 By default, all examples is load from file **sample/action-examples.json**.
 You could prepare your own examples and store it in your local.
+Then using the command **loadexamples** to load your own examples.
+
+Here is simple query action to wikipedia.org:
+
+```json
+{
+    "description":"Example to show how to get a login token",
+    "action": "query",
+    "meta": "tokens",
+    "type": "login"
+},
+```
