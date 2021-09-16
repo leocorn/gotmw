@@ -127,13 +127,19 @@ main().catch( e => {
  */
 async function handleApiAction(actionParams) {
 
+    const params = {};
+    Object.assign( params, actionParams );
+
     // force the return format to json
-    actionParams.format = 'json';
+    params.format = 'json';
+    if( params.hasOwnProperty('description') ) {
+        delete params.description;
+    }
     //console.table(request);
-    console.dir(actionParams);
+    console.dir(params);
 
     // send request and process response.
-    await showResult( actionParams );
+    await showResult( params );
 }
 
 /**
@@ -167,16 +173,26 @@ async function handleUpload( params ) {
 function showExamples( examples ) {
 
     const samples = examples.map( example => {
-        // using the default stringify, no replacer and no space
-        return JSON.stringify( example );
+        // using the default JSON.stringify, no replacer and no space
 
-        // TODO: introduce the "description" field for each actions
-        //       in the examples json file.
-        //       We will return a array with description and the actural action
-        //return [
-        //    "some descriptions",
-        //    JSON.stringify( example )
-        //];
+        // introduce the "description" field for each actions
+        // in the examples json file.
+        // We will return a array with description and the actural action
+        // If "description" field not exist, it will just return the actural action
+
+        if( example.hasOwnProperty('description') ) {
+            const sample = {};
+            // clone the original message.
+            // delete directly without clone will remove from all examples.
+            Object.assign( sample, example );
+            delete sample.description;
+            return [
+                example.description,
+                JSON.stringify( sample )
+            ];
+        } else {
+            return JSON.stringify( example );
+        }
     } );
 
     // table will show all samples in table with index id as the first column.
@@ -207,6 +223,7 @@ function showHelpMessage( ) {
         '             Example upload {"filepath":"/tmp/screen-shot-1.png","filename":"screen-shot-1.png","text":"page content [[Category:Testing]]","comment":"upload from wiki agent"}',
         "",
         "examples     Show action examples",
+        "             By default, examples in file sample/action-examples.json are loaded.",
         "example[i]   Perform a example action specified by the index id",
         "loadexamples Load examples from the given json file",
         '             Example: loadexamples /tmp/my-query-actions.json',
