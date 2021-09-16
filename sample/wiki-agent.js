@@ -15,12 +15,6 @@ const wikipedia = require('./../src/index.js');
 // We will update to use SQLite or Solr.
 let actions = require('./action-examples.json');
 
-// the API url for wikipedia site.
-const wikipediaApi= "https://en.wikipedia.org/w/api.php";
-// all API url for mediawiki site.
-// We could find the meidawiki API documentation from here.
-const mediawikiApi = "https://www.mediawiki.org/w/api.php";
-
 // All binary files for wikipedia.org is stored on site commons.wikimedia.org
 // Sometime, we will use this for testing.
 //const wikipediaApi= "https://commons.wikimedia.org/w/api.php";
@@ -206,7 +200,7 @@ function showHelpMessage( ) {
         "settings     Show current wiki API settings",
         "config       Setup wiki API settings",
         '             Example: config {"apiUrl":"https://en.wikipedia.org/w/api.php","privateWiki":true,"username":"botuser","password":"thepassword"}',
-        "login        Login to a wiki site",
+        "login        Login to a private wiki site or login to create or update content.",
         "action       Perform the MediaWiki API read action",
         '             Example: action {"action":"query","list":"search","srsearch":"intitle:Ava film","srlimit":3}',
         "upload       Perform the upload action",
