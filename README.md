@@ -9,6 +9,9 @@ Try our wiki-agent to learn the MediaWiki Action APIs:
 cd sample
 node wiki-agent.js
 ```
+Here is a quick demo:
+
+![wiki agent demo](/docs/wiki-agent-demo.gif)
 
 ## Examples
 Here are some examples to using **gotmw.js**.
