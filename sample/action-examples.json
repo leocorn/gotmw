@@ -46,7 +46,7 @@
     },
 
     {
-        "description":"Search 'benji' using the build-in wiki search",
+        "description":"Search 'benji' using the build-in wiki search, srnamespace set namespaces.",
         "action": "query",
         "list": "search",
         "srsearch": "benji",
