@@ -55,12 +55,33 @@
     },
 
     {
+        "description":"Search 'bit' using the build-in wiki search. This example shows how to load more using the sroffset property",
+        "action": "query",
+        "list": "search",
+        "srsearch": "bit",
+        "srlimit": 3,
+        "srnamespace": "6|14",
+        "sroffset": 3
+    },
+
+    {
         "description":"Advanced search using the build-in wiki search",
         "action": "query",
         "list": "search",
         "srsearch": "intitle:Ava film",
         "srlimit": 3
     },
+
+    {
+        "description":"Example to get recent changes, use 'rccontinue' to load more results",
+        "action": "query",
+        "list": "recentchanges",
+        "rcnamespace": "*",
+        "rctype": "edit|new",
+        "rcprop": "title|timestamp|ids|comment",
+        "rclimit": 15
+    },
+
 
     {
         "action": "opensearch",
