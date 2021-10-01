@@ -147,7 +147,18 @@ async function handleApiAction(actionParams) {
  */
 async function showResult( params ) {
 
-    const data = await wikipedia.apiCall( params );
+    let data = null;
+
+    if( params.action === 'edit' ) {
+
+        // the edit action.
+        data = await wikipedia.edit( params );
+    } else {
+    
+        // the default api call will be GET method
+        data = await wikipedia.apiCall( params );
+    }
+
     console.log("Wiki action API result:");
     console.log(JSON.stringify(data, null, 2));
     //console.dir(data);
