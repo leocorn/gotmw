@@ -31,6 +31,21 @@
     },
 
     {
+        "description": "Query categories with property 'clcategories' to check whether a certain page is in a certain category",
+        "action": "query",
+        "prop": "categories",
+        "titles": "Albert Einstein|Category:UEFA Euro 2020",
+        "clcategories": "Category:1879 births"
+    },
+
+    {
+        "description": "Query categories for the given page(s), the 'generator' version, which will return more metadata for each category",
+        "action": "query",
+        "generator": "categories",
+        "titles": "Albert Einstein"
+    },
+
+    {
         "description":"Query the most recent changes, only return the first 3",
         "action": "query",
         "list": "recentchanges",
