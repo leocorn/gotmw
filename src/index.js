@@ -285,7 +285,7 @@ wikiClient.bulkEdit = async function( paramsArray ) {
     for( const params of paramsArray ) {
 
         params.token = csrfToken;
-        ret.push( await this.apiCall( params, 'POST' );
+        ret.push( await this.apiCall( params, 'POST' ) );
     }
 
     return ret;

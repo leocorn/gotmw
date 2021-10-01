@@ -23,6 +23,14 @@
     },
 
     {
+        "description": "Query categories for the given page(s), the 'cllimit' is based on overall categories of all pages amount instead of the amount for each page!",
+        "action": "query",
+        "prop": "categories",
+        "titles": "Albert Einstein|Category:UEFA Euro 2020",
+        "cllimit": 15
+    },
+
+    {
         "description":"Query the most recent changes, only return the first 3",
         "action": "query",
         "list": "recentchanges",
