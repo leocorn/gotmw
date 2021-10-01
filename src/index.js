@@ -255,6 +255,8 @@ wikiClient.upload = async function( filepath, filename, text, comment ) {
 /**
  * utility function to perform the edit action,
  * which will create or edit a wiki page.
+ *
+ * @param {Object} params - the edit parameters to MediaWiki action api
  */
 wikiClient.edit = async function( params ) {
 
@@ -265,5 +267,26 @@ wikiClient.edit = async function( params ) {
     params.token = csrfToken;
 
     const ret = await this.apiCall( params, 'POST' );
+    return ret;
+}
+
+/**
+ * utility function to perform a group of edit actions.
+ *
+ * @param {Array} paramsArray - an array of edit action parameters
+ */
+wikiClient.bulkEdit = async function( paramsArray ) {
+
+    // get CSRF token.
+    const csrfToken = await this.getToken();
+
+    const ret = [];
+
+    for( const params of paramsArray ) {
+
+        params.token = csrfToken;
+        ret.push( await this.apiCall( params, 'POST' );
+    }
+
     return ret;
 }
