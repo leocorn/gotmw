@@ -251,3 +251,19 @@ wikiClient.upload = async function( filepath, filename, text, comment ) {
     const ret = await this.apiCall( form, 'POST-BODY' );
     return ret;
 };
+
+/**
+ * utility function to perform the edit action,
+ * which will create or edit a wiki page.
+ */
+wikiClient.edit = async function( params ) {
+
+    // get CSRF token, csrf is the default token type.
+    const csrfToken = await this.getToken();
+
+    // update the params with new token.
+    params.token = csrfToken;
+
+    const ret = await this.apiCall( params, 'POST' );
+    return ret;
+}
