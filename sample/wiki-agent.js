@@ -12,8 +12,30 @@ const wikipedia = require('./../src/index.js');
 // pre-load some action examples:
 // this is a sample of the file, it is an array of action request object.
 // It is a simple JSON format at this time.
-// We will update to use SQLite or Solr.
+// TODO: We will update to use SQLite or Solr.
+// The default examples file is 'action-examples.json'.
 let actions = require('./action-examples.json');
+
+// check the command line parameter.
+const rawParams = process.argv.slice(2);
+if( rawParams.length == 1 ) {
+
+    console.log( 'Loading configuration file', rawParams[0] );
+    // the configuration file has to be a full path!
+    const config = require( rawParams[0] );
+
+    // set the wiki options.
+    wikipedia.setWikiOptions( config.wikiOptions );
+
+    // set the action examples.
+    actions = require( config.actionExamples );
+}
+
+// the entry function.
+main().catch( e => {
+    console.error(e);
+    throw e;
+} );
 
 // All binary files for wikipedia.org is stored on site commons.wikimedia.org
 // Sometime, we will use this for testing.
@@ -115,12 +137,6 @@ async function main() {
         userInput = await prompt.get( schema );
     }
 }
-
-// 
-main().catch( e => {
-    console.error(e);
-    throw e;
-} );
 
 /**
  * the main function to process api actions.
