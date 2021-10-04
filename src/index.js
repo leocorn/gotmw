@@ -135,6 +135,7 @@ wikiClient.getToken = async function( type='csrf' ) {
     };
 
     let res = await this.apiCall( params );
+    console.log( 'Got token:', res.data );
 
     return res.data.query.tokens[`${type}token`];
 };
@@ -271,7 +272,8 @@ wikiClient.edit = async function( params ) {
 }
 
 /**
- * utility function to perform a group of edit actions.
+ * Utility function to perform a group of edit actions.
+ * We will use one CSRF token for multiple edit POST requests.
  *
  * @param {Array} paramsArray - an array of edit action parameters
  */
@@ -285,6 +287,7 @@ wikiClient.bulkEdit = async function( paramsArray ) {
     for( const params of paramsArray ) {
 
         params.token = csrfToken;
+        console.log( 'bulkEdit:', params );
         ret.push( await this.apiCall( params, 'POST' ) );
     }
 

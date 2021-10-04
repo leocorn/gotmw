@@ -69,6 +69,9 @@ async function main() {
         } else if( userInput.action.startsWith("action") ) {
             userInput.value = userInput.action.split("action ")[1];
             userInput.action = "action";
+        } else if( userInput.action.startsWith("bulktags") ) {
+            userInput.value = userInput.action.split("bulktags ")[1];
+            userInput.action = "bulktags";
         } else if( userInput.action.startsWith("loadexamples") ) {
             userInput.value = userInput.action.split("loadexamples ")[1];
             userInput.action = "loadexamples";
@@ -102,6 +105,10 @@ async function main() {
             case "action":
                 console.log("Start to perform action");
                 await handleApiAction( JSON.parse(userInput.value) );
+                break;
+            case "bulktags":
+                console.log("Start to perform bulk editing actions");
+                await handleBulkTags( JSON.parse(userInput.value) );
                 break;
             case "login":
                 console.log("Log into a private wiki site");
@@ -156,6 +163,39 @@ async function handleApiAction(actionParams) {
 
     // send request and process response.
     await showResult( params );
+}
+
+/**
+ * handle edit tags for multiple pages at once.
+ */
+async function handleBulkTags( pagesTags ) {
+
+    const pages = pagesTags.pages.split("|");
+    console.log( "Working on pages:", pages );
+    const categories = pagesTags.categories.split("|")
+        .map( cat => '[[Category:' + cat + ']]' ).join('');
+    console.log( "New Categories:", categories );
+
+    // set the variable for the edit parameters.
+    const params = [];
+    pages.forEach( page => {
+
+        params.push( {
+            action: 'edit',
+            pageid: parseInt(page),
+            appendtext: categories,
+            summary: 'Add ' + categories + ' using wiki agent',
+            // need set the format to json.
+            format: 'json',
+            token: 'TO BE REPLACED'
+        } );
+    } );
+
+    // edit params.
+    console.log( "Edit POST requests:", params );
+
+    const ret = await wikipedia.bulkEdit( params );
+    console.log(ret);
 }
 
 /**
@@ -251,6 +291,8 @@ function showHelpMessage( ) {
         "----------------------------------------------------------------------",
         "action       Perform the MediaWiki API read action",
         '             Example: action {"action":"query","list":"search","srsearch":"intitle:Ava film","srlimit":3}',
+        "bulktags     Testing add categories for multiple pages at once",
+        '             Example: bulktags {"pages":"123|234|234","categories":"category one|cagegory two"}',
         "upload       Perform the upload action",
         '             Example: upload {"filepath":"/tmp/screen-shot-1.png","filename":"screen-shot-1.png","text":"page content [[Category:Testing]]","comment":"upload from wiki agent"}',
         "----------------------------------------------------------------------",
