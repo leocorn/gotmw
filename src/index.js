@@ -293,3 +293,39 @@ wikiClient.bulkEdit = async function( paramsArray ) {
 
     return ret;
 }
+
+/**
+ * utility function to check whether the given pages are in the given category.
+ *
+ * @param {String} pageids - a list of pageids, separate by "|"
+ * @param {String} category - the category, for example Category:Test Edit.
+ *        We will follow the convension for query categories action.
+ *        This will be used in parameter 'clcategories'.
+ *        If it NOT starts with 'Category', Wiki action API will raise warning:
+ *        - 'Test Edit' is not a category.
+ *        And all categories for each page will returned!
+ *        Test is using the wiki-agent
+ */
+wikiClient.pagesNotInCategory = async function( pageids, category ) {
+
+    // preparing the request parameters:
+    const params = {
+        'action': 'query',
+        'prop': 'categories',
+        'pageids': pageids,
+        'clcategories': category,
+        'format': 'json'
+    };
+
+    const res = await this.apiCall( params );
+    console.log( 'pagesInCagegory:', res.data.query.pages );
+
+    // return pageids which are in the given category.
+    const ids = pageids.split("|").filter( pageid => {
+
+        return ! res.data.query.pages[pageid].hasOwnProperty('categories');
+    } );
+    console.log( 'pagesIndCategory: matched ids', ids);
+
+    return ids.join("|");
+}

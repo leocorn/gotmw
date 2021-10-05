@@ -170,11 +170,20 @@ async function handleApiAction(actionParams) {
  */
 async function handleBulkTags( pagesTags ) {
 
-    const pages = pagesTags.pages.split("|");
+    const category = '[[' + pagesTags.category + ']]';
+    console.log( "New Categories:", category);
+
+    // check to make sure the given pages does NOT in the given category
+    const pageIds = await wikipedia.pagesNotInCategory( pagesTags.pages,
+        pagesTags.category );
+
+    if( pageIds === '' ) {
+        console.log( 'Pages are ALREADY in ' + pagesTags.category );
+        return;
+    }
+
+    const pages = pageIds.split("|");
     console.log( "Working on pages:", pages );
-    const categories = pagesTags.categories.split("|")
-        .map( cat => '[[Category:' + cat + ']]' ).join('');
-    console.log( "New Categories:", categories );
 
     // set the variable for the edit parameters.
     const params = [];
@@ -183,8 +192,8 @@ async function handleBulkTags( pagesTags ) {
         params.push( {
             action: 'edit',
             pageid: parseInt(page),
-            appendtext: categories,
-            summary: 'Add ' + categories + ' using wiki agent',
+            appendtext: category,
+            summary: 'Add ' + category + ' using wiki agent',
             // need set the format to json.
             format: 'json',
             token: 'TO BE REPLACED'
@@ -192,7 +201,7 @@ async function handleBulkTags( pagesTags ) {
     } );
 
     // edit params.
-    console.log( "Edit POST requests:", params );
+    //console.log( "Edit POST requests:", params );
 
     const ret = await wikipedia.bulkEdit( params );
     console.log(ret);
@@ -292,7 +301,7 @@ function showHelpMessage( ) {
         "action       Perform the MediaWiki API read action",
         '             Example: action {"action":"query","list":"search","srsearch":"intitle:Ava film","srlimit":3}',
         "bulktags     Testing add categories for multiple pages at once",
-        '             Example: bulktags {"pages":"123|234|234","categories":"category one|cagegory two"}',
+        '             Example: bulktags {"pages":"313|314|317","category":"Category:Fencing 2021-2022"}',
         "upload       Perform the upload action",
         '             Example: upload {"filepath":"/tmp/screen-shot-1.png","filename":"screen-shot-1.png","text":"page content [[Category:Testing]]","comment":"upload from wiki agent"}',
         "----------------------------------------------------------------------",
