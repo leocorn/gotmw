@@ -180,7 +180,7 @@ async function handleBulkTag( pagesTag ) {
         pagesTag.category );
 
     if( pageIds === '' ) {
-        console.log( 'Pages are ALREADY in ' + pagesTag.category );
+        console.log( 'All pages are ALREADY in ' + pagesTag.category );
         return;
     }
 
@@ -302,7 +302,7 @@ function showHelpMessage( ) {
         "----------------------------------------------------------------------",
         "action       Perform the MediaWiki API read action",
         '             Example: action {"action":"query","list":"search","srsearch":"intitle:Ava film","srlimit":3}',
-        "bulktag      Testing add categories for multiple pages at once",
+        "bulktag      Testing to add a category for multiple pages at once",
         '             Example: bulktag {"pages":"313|314|317","category":"Category:Fencing 2021-2022"}',
         "upload       Perform the upload action",
         '             Example: upload {"filepath":"/tmp/screen-shot-1.png","filename":"screen-shot-1.png","text":"page content [[Category:Testing]]","comment":"upload from wiki agent"}',
