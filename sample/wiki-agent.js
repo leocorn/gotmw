@@ -69,9 +69,9 @@ async function main() {
         } else if( userInput.action.startsWith("action") ) {
             userInput.value = userInput.action.split("action ")[1];
             userInput.action = "action";
-        } else if( userInput.action.startsWith("bulktags") ) {
-            userInput.value = userInput.action.split("bulktags ")[1];
-            userInput.action = "bulktags";
+        } else if( userInput.action.startsWith("bulktag") ) {
+            userInput.value = userInput.action.split("bulktag ")[1];
+            userInput.action = "bulktag";
         } else if( userInput.action.startsWith("loadexamples") ) {
             userInput.value = userInput.action.split("loadexamples ")[1];
             userInput.action = "loadexamples";
@@ -106,9 +106,9 @@ async function main() {
                 console.log("Start to perform action");
                 await handleApiAction( JSON.parse(userInput.value) );
                 break;
-            case "bulktags":
+            case "bulktag":
                 console.log("Start to perform bulk editing actions");
-                await handleBulkTags( JSON.parse(userInput.value) );
+                await handleBulkTag( JSON.parse(userInput.value) );
                 break;
             case "login":
                 console.log("Log into a private wiki site");
@@ -168,17 +168,19 @@ async function handleApiAction(actionParams) {
 /**
  * handle edit tags for multiple pages at once.
  */
-async function handleBulkTags( pagesTags ) {
+async function handleBulkTag( pagesTag ) {
 
-    const category = '[[' + pagesTags.category + ']]';
+    console.dir( pagesTag );
+
+    const category = '[[' + pagesTag.category + ']]';
     console.log( "New Categories:", category);
 
     // check to make sure the given pages does NOT in the given category
-    const pageIds = await wikipedia.pagesNotInCategory( pagesTags.pages,
-        pagesTags.category );
+    const pageIds = await wikipedia.pagesNotInCategory( pagesTag.pages,
+        pagesTag.category );
 
     if( pageIds === '' ) {
-        console.log( 'Pages are ALREADY in ' + pagesTags.category );
+        console.log( 'Pages are ALREADY in ' + pagesTag.category );
         return;
     }
 
@@ -300,8 +302,8 @@ function showHelpMessage( ) {
         "----------------------------------------------------------------------",
         "action       Perform the MediaWiki API read action",
         '             Example: action {"action":"query","list":"search","srsearch":"intitle:Ava film","srlimit":3}',
-        "bulktags     Testing add categories for multiple pages at once",
-        '             Example: bulktags {"pages":"313|314|317","category":"Category:Fencing 2021-2022"}',
+        "bulktag      Testing add categories for multiple pages at once",
+        '             Example: bulktag {"pages":"313|314|317","category":"Category:Fencing 2021-2022"}',
         "upload       Perform the upload action",
         '             Example: upload {"filepath":"/tmp/screen-shot-1.png","filename":"screen-shot-1.png","text":"page content [[Category:Testing]]","comment":"upload from wiki agent"}',
         "----------------------------------------------------------------------",
