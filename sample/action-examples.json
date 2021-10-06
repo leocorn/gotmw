@@ -118,5 +118,14 @@
         "aisort": "timestamp",
         "aidir": "descending",
         "ailimit": 3
+    },
+
+    {
+        "description":"Query to mimic the page Special:NewFiles, the generator version",
+        "action": "query",
+        "generator": "allimages",
+        "gaisort": "timestamp",
+        "gaidir": "descending",
+        "gailimit": 3
     }
 ]
