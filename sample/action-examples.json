@@ -109,5 +109,14 @@
         "action": "opensearch",
         "search": "Hampi",
         "limit": 3
+    },
+
+    {
+        "description":"the query to mimic the page Special:NewFiles",
+        "action": "query",
+        "list": "allimages",
+        "aisort": "timestamp",
+        "aidir": "descending",
+        "ailimit": 3
     }
 ]
